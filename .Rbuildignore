@@ -5,3 +5,6 @@
 ^\.github$
 
 ^docs$
+
+[.]png$
+^codecov\.yml$

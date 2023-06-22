@@ -11,11 +11,16 @@ version](https://www.r-pkg.org/badges/version/rrcovNA)](https://cran.r-project.o
 [![downloads](https://cranlogs.r-pkg.org/badges/rrcovNA)](https://cran.r-project.org/package=rrcovNA)
 [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/rrcovNA)](https://cran.r-project.org/package=rrcovNA)
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![R-CMD-check](https://github.com/valentint/rrcovNA/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/valentint/rrcovNA/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/valentint/rrcovNA/branch/main/graph/badge.svg)](https://app.codecov.io/gh/valentint/rrcovNA?branch=main)
 <!-- badges: end -->
 
 The package `rrcovNA` provides scalable robust estimators with high
 breakdown point for incomplete data (missing values) (Todorov et
-al. (2010) <doi:10.1007/s11634-010-0075-2>). \## Installation
+al. (2010) <doi:10.1007/s11634-010-0075-2>).
+
+## Installation
 
 The `rrcovNA` package is on CRAN (The Comprehensive R Archive Network)
 and the latest release can be easily installed using the command
