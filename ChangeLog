@@ -1,0 +1,92 @@
+2020-01-15  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-14
+    *
+    *	NAMESPACE - to fix an issue with an update of rrcov: remove 'exportPattern'
+    *       and define every exported function separately
+    *   R/CovRobust.R, NAMESPACE, DESCRIPTION - removed the dependence on 
+    *       package 'cluster' - function ellipsoidPoints
+    *
+2019-10-22  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-13
+    *
+    *	src/fmcd.f, emncov.f: fixed warnings by a new FORTRAN compiler -
+    *       see mail from Prof. Ripley from 3.October 2019
+    *	src/rrcovna_init.c: Registration of native routines
+    *
+2016-09-03  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-9
+    *
+    * Shows differences (some platform?) after UNRELATED update of rrcov 1.4-1
+    *
+2015-11-28  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-8
+    *
+    * Fixed a bug related to rrcov update
+    * Added deterministic S estimates to CovNASest
+    *
+    *
+2014-12-02  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-7
+    *
+2014-10-31  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-6
+    *
+    * Fixed compatibility issues with robustbase and rrcov versions (imports)
+    *
+2013-09-15  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.4-5
+    *
+    * Use suppressPackageStartupMessages(library(rrcov)) in the tests
+    *
+
+2013-08-19  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.4-4
+    *
+    * Warnings fixed - see mail from Prof. Ripley from 9.August 2013
+    *
+
+2012-04-11  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.4-03
+    *
+    * errors and warnings fixed
+
+2011-03-13  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.4-02
+    *
+    * improved the plot functions for CovNA objects
+    *
+    * Fixed a problem with PcaNA and method = "cov" - the default
+    * method changed to "cov".
+    *
+
+2011-03-13  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.4-00
+    * Fixed a problem with impMeth="seq"
+    * Added function CovNARobust()
+    * Added additional plots: which=c(..., "tolEllipse", "pairs", "xydistplot", 	"xyqqchi2")
+    *
+
+2010-07-20  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.3-00
+    * Added sequential and robust sequential imputation
+    * Added all PM-methods: MCD, SDE, OGK, S
+    * Adjusted the S4 class hierarchy
+    * Some help added
+    *
+2009-09-25  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.2-01
+    *
+2009-07-15  Valentin Todorov  <valentin.todorov@chello.at>
+    * 0.2-00
+    *
+    * Prehistory
+    *
+
+
