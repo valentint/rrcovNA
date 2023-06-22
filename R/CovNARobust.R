@@ -328,7 +328,7 @@ setMethod("plot", signature(x="CovNARobust", y="missing"), function(x, y="missin
 
     panel.hist <- function(x, ...)
     {
-        usr <- par("usr"); on.exit(par(usr))
+        usr <- par("usr"); on.exit(par(usr=usr))
         par(usr = c(usr[1:2], 0, 1.5) )
         h <- hist(x, plot = FALSE)
         breaks <- h$breaks; nB <- length(breaks)
@@ -338,7 +338,7 @@ setMethod("plot", signature(x="CovNARobust", y="missing"), function(x, y="missin
 
     panel.hist.density <- function(x,...)
     {
-        usr <- par("usr"); on.exit(par(usr))
+        usr <- par("usr"); on.exit(par(usr=usr))
         par(usr = c(usr[1:2], 0, 1.5) )
 
         h <- hist(x, plot = FALSE)
@@ -358,7 +358,7 @@ setMethod("plot", signature(x="CovNARobust", y="missing"), function(x, y="missin
     {
         ix <- which.ij(x, y, getData(obj))
 
-        usr <- par("usr"); on.exit(par(usr))
+        usr <- par("usr"); on.exit(par(usr=usr))
         par(usr = c(0, 1, 0, 1))
 
         r <- cor(x, y, use="pairwise.complete.obs")
@@ -380,7 +380,7 @@ setMethod("plot", signature(x="CovNARobust", y="missing"), function(x, y="missin
     }
     panel.ellipse <- function(x, y, ...)
     {
-        usr <- par("usr"); on.exit(par(usr))
+        usr <- par("usr"); on.exit(par(usr=usr))
 
         ix <- which.ij(x, y, getData(obj))
 
