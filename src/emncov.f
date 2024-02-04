@@ -392,7 +392,7 @@ C in the first missingness pattern.
            call moden(d,t,p,psi,n,tau,m,mu,lmbinv)
         endif
         do 210 i=2,d
-           t(i)=t(i)/dfloat(n)
+           t(i)=t(i)/dble(n)
 210     continue
         call swp(d,t,0,p,psi,p,1)
         return
@@ -481,20 +481,20 @@ C Alters the sufficient statistics to yield a posterior mode.
         integer d,p,psi(0:p,0:p),n
         double precision t(d),tau,m,mu(p),lmbinv(p,p),c,e
         do 5 j=1,p
-           mu(j)=mu(j)*dfloat(n)
+           mu(j)=mu(j)*dble(n)
 5       continue
-        c=tau/(dfloat(n)*(tau+dfloat(n)))
-        e=dfloat(n)/(dfloat(n)+m+dfloat(p)+2.)
+        c=tau/(dble(n)*(tau+dble(n)))
+        e=dble(n)/(dble(n)+m+dble(p)+2.)
         do 20 j=1,p
            do 10 k=j,p
               t(psi(j,k))=t(psi(j,k))+lmbinv(j,k)-(t(psi(0,j))*
-     /           t(psi(0,k)))/dfloat(n)
+     /           t(psi(0,k)))/dble(n)
               t(psi(j,k))=t(psi(j,k))+c*(t(psi(0,j))-mu(j))*
      /           (t(psi(0,k))-mu(k))
               t(psi(j,k))=t(psi(j,k))*e
 10         continue
 20      continue
-        c=dfloat(n)/(tau+dfloat(n))
+        c=dble(n)/(tau+dble(n))
         e=1.-c
         do 30 j=1,p
            t(psi(0,j))=c*t(psi(0,j))+e*mu(j)
@@ -502,7 +502,7 @@ C Alters the sufficient statistics to yield a posterior mode.
         do 50 j=1,p
            do 40 k=j,p
               t(psi(j,k))=t(psi(j,k))+(t(psi(0,j))*
-     /           t(psi(0,k)))/dfloat(n)
+     /           t(psi(0,k)))/dble(n)
 40         continue
 50      continue
         return

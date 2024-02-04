@@ -36,7 +36,7 @@ the observation is included in the further steps of the algorithm.
 \references{
     S. Verboven, K. Vanden Branden and P. Goos (2007).
     Sequential imputation for missing values.
-    \emph{Computational Biology and Chemistry}, bold{31},  320--327.
+    \emph{Computational Biology and Chemistry}, \bold{31},  320--327.
     K. Vanden Branden and S. Verboven (2009).
     Robust Data Imputation.
     \emph{Computational Biology and Chemistry}, \bold{33}, 7--13.

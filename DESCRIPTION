@@ -1,9 +1,9 @@
 Package: rrcovNA
-Date: 2023-06-18
+Date: 2024-02-04
 Title: Scalable Robust Estimators with High Breakdown Point for
         Incomplete Data
-Version: 0.5-0
-VersionNote: Released 1.4-15 on 2020-01-16 on CRAN
+Version: 0.5-1
+VersionNote: Released 0.5-0 on 2023-06-18 on CRAN
 Authors@R: c(person("Valentin", "Todorov", role = c("aut", "cre"), email = "valentin.todorov@chello.at", comment=c(ORCID = "0000-0003-4215-0245")))
 Description: Robust Location and Scatter Estimation and Robust
         Multivariate Analysis with High Breakdown Point for Incomplete

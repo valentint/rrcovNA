@@ -11,7 +11,6 @@ version](https://www.r-pkg.org/badges/version/rrcovNA)](https://cran.r-project.o
 [![downloads](https://cranlogs.r-pkg.org/badges/rrcovNA)](https://cran.r-project.org/package=rrcovNA)
 [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/rrcovNA)](https://cran.r-project.org/package=rrcovNA)
 [![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-[![R-CMD-check](https://github.com/valentint/rrcovNA/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/valentint/rrcovNA/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/valentint/rrcovNA/branch/main/graph/badge.svg)](https://app.codecov.io/gh/valentint/rrcovNA?branch=main)
 <!-- badges: end -->
@@ -49,7 +48,7 @@ installed:
 library(rrcovNA)
 #> Loading required package: rrcov
 #> Loading required package: robustbase
-#> Scalable Robust Estimators with High Breakdown Point (version 1.7-3)
+#> Scalable Robust Estimators with High Breakdown Point (version 1.7-5)
 #> Scalable Robust Estimators with High Breakdown Point for
 #> Incomplete Data (version 0.5-0)
 data(bush10)

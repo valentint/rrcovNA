@@ -26,7 +26,7 @@ and the algorithm continues with the next observation with missing values.
 \references{
     S. Verboven, K. Vanden Branden and P. Goos (2007).
     Sequential imputation for missing values.
-    \emph{Computational Biology and Chemistry}, bold{31},  320--327.
+    \emph{Computational Biology and Chemistry}, \bold{31},  320--327.
 
 }
 %\seealso{}
