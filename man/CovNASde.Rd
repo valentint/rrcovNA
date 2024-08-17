@@ -32,7 +32,7 @@ impMeth = c("norm" , "seq", "rseq"), seed = NULL, trace = FALSE, control)
     \code{nsamp} when \code{nresamp} is omitted. Defaults to \code{0.5}. }
   \item{seed}{starting value for random generator. Default is \code{seed = NULL}.}
   \item{trace}{whether to print intermediate results. Default is \code{trace = FALSE}.  }
-  \item{control}{ a control object (S4) of class \code{\link{CovControlSde-class}}
+  \item{control}{ a control object (S4) of class \code{\link[rrcov]{CovControlSde-class}}
     containing estimation options - same as these provided in the fucntion
     specification. If the control object is supplied, the parameters from it
     will be used. If parameters are passed also in the invocation statement, they will
@@ -41,8 +41,8 @@ impMeth = c("norm" , "seq", "rseq"), seed = NULL, trace = FALSE, control)
 
 %\details{}
 \value{
-  An S4 object of class \code{\link{CovNASde-class}} which is a subclass of the
-  virtual class \code{\link{CovNARobust-class}}.
+  An S4 object of class \code{\linkS4class{CovNASde}} which is a subclass of the
+  virtual class \code{\linkS4class{CovNARobust}}.
 }
 
 \references{

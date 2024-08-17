@@ -18,14 +18,14 @@ Objects can be created by calls of the form \code{new("PcaNA", ...)} but the
             \code{eigenvalues}, \code{scores}, \code{k},
             \code{sd}, \code{od}, \code{cutoff.sd}, \code{cutoff.od},
             \code{flag}, \code{n.obs}:}{
-            from the \code{"\linkS4class{Pca}"} class.
+            from the \code{"\link[rrcov]{Pca-class}"} class.
         }
         \item{\code{Ximp}:}{the data matrix with imputed missing values}
     }
 }
 
 \section{Extends}{
-Class \code{"\linkS4class{Pca}"}, directly.
+Class \code{"\link[rrcov]{Pca-class}"}, directly.
 }
 \section{Methods}{
   \describe{
@@ -45,7 +45,8 @@ Class \code{"\linkS4class{Pca}"}, directly.
 }
 \author{ Valentin Todorov \email{valentin.todorov@chello.at} }
 \seealso{
-     \code{\link{PcaRobust-class}}, \code{\link{Pca-class}}, \code{\link{PcaClassic}}, \code{\link{PcaClassic-class}}
+     \code{\link[rrcov]{PcaRobust-class}}, \code{\link[rrcov]{Pca-class}}, 
+     \code{\link[rrcov]{PcaClassic}}, \code{\link[rrcov]{PcaClassic-class}}
 }
 
 \examples{

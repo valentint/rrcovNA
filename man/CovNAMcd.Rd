@@ -29,7 +29,7 @@ use.correction = TRUE, impMeth = c("norm" , "seq", "rseq"), control)
   \item{use.correction}{ whether to use finite sample correction factors.
     Default is \code{use.correction=TRUE}}
   \item{impMeth}{ select imputation method to use - choose one of "norm" , "seq" or "rseq". The default is "norm"}
-  \item{control}{ a control object (S4) of class \code{\link{CovControlMcd-class}}
+  \item{control}{ a control object (S4) of class \code{\link[rrcov]{CovControlMcd-class}}
     containing estimation options - same as these provided in the function
     specification. If the control object is supplied, the parameters from it
     will be used. If parameters are passed also in the invocation statement, they will
@@ -38,7 +38,7 @@ use.correction = TRUE, impMeth = c("norm" , "seq", "rseq"), control)
 \details{
   This function computes the minimum covariance determinant estimator
   of location and scatter and returns an S4 object of class
-  \code{\link{CovMcd-class}} containing the estimates.
+  \code{\link[rrcov]{CovMcd-class}} containing the estimates.
   The implementation of the function is similar to the existing \R function
   \code{\link[robustbase]{covMcd}()} which returns an S3 object.
   The MCD method looks for the \eqn{h (> n/2)}
@@ -59,8 +59,8 @@ use.correction = TRUE, impMeth = c("norm" , "seq", "rseq"), control)
   to approximate the minimum covariance determinant estimator.
 }
 \value{
-  An S4 object of class \code{\link{CovNAMcd-class}} which is a subclass of the
-  virtual class \code{\link{CovNARobust-class}}.
+  An S4 object of class \code{\linkS4class{CovNAMcd}} which is a subclass of the
+  virtual class \code{\linkS4class{CovNARobust}}.
 }
 \references{
   V. Todorov, M. Templ and P. Filzmoser. Detection of multivariate outliers in business

@@ -17,7 +17,7 @@ CovNAOgk(x, niter = 2, beta = 0.9, impMeth = c("norm" , "seq", "rseq"), control)
     beyond the second do not lead to improvement. }
   \item{beta}{ coverage parameter for the final reweighted estimate }
   \item{impMeth}{ select imputation method to use - choose one of "norm" , "seq" or "rseq". The default is "norm"}
-  \item{control}{ a control object (S4) of class \code{\link{CovControlOgk-class}}
+  \item{control}{ a control object (S4) of class \code{\link[rrcov]{CovControlOgk-class}}
     containing estimation options - same as these provided in the function
     specification. If the control object is supplied, the parameters from it
     will be used. If parameters are passed also in the invocation statement, they will
@@ -51,11 +51,11 @@ CovNAOgk(x, niter = 2, beta = 0.9, impMeth = c("norm" , "seq", "rseq"), control)
     If the arguments \code{mrob} and \code{vrob} are not NULL, the specified functions
     will be used via the pure R implementation of the algorithm. This could be quite slow.
 
-    See \code{\link{CovControlOgk}} for details.
+    See \code{\link[rrcov]{CovControlOgk}} for details.
 }
 \value{
-  An S4 object of class \code{\link{CovNAOgk-class}} which is a subclass of the
-  virtual class \code{\link{CovNARobust-class}}.
+  An S4 object of class \code{\linkS4class{CovNAOgk}} which is a subclass of the
+  virtual class \code{\linkS4class{CovNARobust}}.
 }
 \references{
   Yohai, R.A. and Zamar, R.H. (1998)
@@ -74,8 +74,9 @@ CovNAOgk(x, niter = 2, beta = 0.9, impMeth = c("norm" , "seq", "rseq"), control)
 
 \author{ Valentin Todorov \email{valentin.todorov@chello.at}
 }
-%\note{}
+
 \seealso{ \code{\link{CovNAMcd}} }
+
 \examples{
 data(bush10)
 CovNAOgk(bush10)

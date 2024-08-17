@@ -33,7 +33,7 @@
   }
 }
 \section{Extends}{
-    Class \code{"\linkS4class{Cov}"}, directly.
+    Class \code{"\link[rrcov]{Cov-class}"}, directly.
 }
 \section{Methods}{
   \describe{

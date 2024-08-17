@@ -26,7 +26,7 @@ This function simply uses \code{imp.norm} from package \code{norm}.
 See Section 5.4.1 of Schafer (1996).
 }
 \seealso{
-\code{\link{prelim.norm}}, \code{\link{makeparam.norm}}, and \code{\link{rngseed}}.
+\code{\link[norm]{prelim.norm}}, \code{\link[norm]{makeparam.norm}}, and \code{\link[norm]{rngseed}}.
 }
 \examples{
 data(bush10)

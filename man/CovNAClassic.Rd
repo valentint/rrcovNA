@@ -31,7 +31,7 @@
 %\note{}
 \author{Valentin Todorov \email{valentin.todorov@chello.at}}
 \seealso{
-  \code{\link{Cov-class}}, \code{\link{CovClassic-class}}, \code{\link{CovNAClassic-class}}
+  \code{\link[rrcov]{Cov-class}}, \code{\link[rrcov]{CovClassic-class}}, \code{\link{CovNAClassic-class}}
 }
 \examples{
 data(bush10)

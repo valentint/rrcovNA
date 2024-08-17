@@ -31,7 +31,7 @@ Class \code{"SummaryCovNA"}, directly.
 %\note{}
 
 \seealso{
-  \code{\link{CovRobust-class}},   \code{\link{SummaryCov-class}}
+  \code{\link[rrcov]{CovRobust-class}},   \code{\link[rrcov]{SummaryCov-class}}
 }
 \examples{
 data(hbk)

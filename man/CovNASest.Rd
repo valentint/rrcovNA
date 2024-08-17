@@ -52,7 +52,7 @@
     \code{\link[robustbase]{Qn}} if \code{n <= 1000} and \code{\link[robustbase]{scaleTau2}} otherwise.}
   \item{method}{ Which algorithm to use: 'sfast'=FAST-S, 'surreal'=SURREAL, 'bisquare', 
   'rocke' or 'sdet', which will invoke the deterministic algorihm of Hubert et al. (2012).}
-  \item{control}{ a control object (S4) of class \code{\link{CovControlSest-class}}
+  \item{control}{ a control object (S4) of class \code{\link[rrcov]{CovControlSest-class}}
     containing estimation options - same as these provided in the fucntion
     specification. If the control object is supplied, the parameters from it
     will be used. If parameters are passed also in the invocation statement, they will
@@ -72,8 +72,8 @@
     }
 }
 \value{
-  An S4 object of class \code{\link{CovNASest-class}} which is a subclass of the
-  virtual class \code{\link{CovNARobust-class}}.
+  An S4 object of class \code{\linkS4class{CovNASest}} which is a subclass of the
+  virtual class \code{\linkS4class{CovNARobust}}.
 }
 \references{
   M. Salibian-Barrera and V. Yohai (2006) A fast algorithm for S-regression

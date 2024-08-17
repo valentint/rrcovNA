@@ -28,7 +28,7 @@ No Methods defined with class \code{"SummaryCovNA"} in the signature.
 \author{Valentin Todorov \email{valentin.todorov@chello.at}}
 %\note{}
 \seealso{
-  \code{\link{CovNA-class}}
+  \code{\linkS4class{CovNA}}
 }
 \examples{
 showClass("SummaryCovNA")

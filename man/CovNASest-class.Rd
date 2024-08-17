@@ -15,20 +15,20 @@
 \section{Slots}{
     \describe{
         \item{\code{iter}, \code{crit}, \code{wt}:}{from the
-            \code{"\linkS4class{CovRobust}"} class.
+            \code{"\link[rrcov]{CovRobust-class}"} class.
         }
         \item{\code{call}, \code{cov}, \code{center},
             \code{n.obs}, \code{mah}, \code{method},
-            \code{singularity}, \code{X}:}{from the \code{"\linkS4class{Cov}"} class.
+            \code{singularity}, \code{X}:}{from the \code{"\link[rrcov]{Cov-class}"} class.
         }
     }
 }
 \section{Extends}{
-    Class \code{"\linkS4class{CovRobust}"}, directly.
-    Class \code{"\linkS4class{Cov}"}, by class \code{"\linkS4class{CovRobust}"}.
+    Class \code{"\link[rrcov]{CovRobust-class}"}, directly.
+    Class \code{"\link[rrcov]{Cov-class}"}, by class \code{"\link[rrcov]{CovRobust-class}"}.
 }
 \section{Methods}{
-No methods defined with class "CovSest" in the signature.
+No methods defined with class "CovNASest" in the signature.
 }
 \references{
   Todorov V & Filzmoser P (2009),
@@ -38,7 +38,7 @@ No methods defined with class "CovSest" in the signature.
 }
 \author{ Valentin Todorov \email{valentin.todorov@chello.at} }
 \seealso{
-   \code{\link{CovSest}}, \code{\link{Cov-class}}, \code{\link{CovRobust-class}}
+   \code{\link[rrcov]{CovSest}}, \code{\link[rrcov]{Cov-class}}, \code{\link[rrcov]{CovRobust-class}}
 }
 \examples{
 showClass("CovNASest")

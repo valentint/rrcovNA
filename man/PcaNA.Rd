@@ -61,12 +61,12 @@ PcaNA(x, ...)
   \item{trace}{whether to print intermediate results. Default is \code{trace = FALSE}}
 }
 \details{
-\code{PcaNA}, serving as a constructor for objects of class \code{\link{PcaNA-class}} 
+\code{PcaNA}, serving as a constructor for objects of class \code{\linkS4class{PcaNA}} 
 is a generic function with "formula" and "default" methods. For details see the relevant references.
 }
 \value{
-  An S4 object of class \code{\link{PcaNA-class}} which is a subclass of the 
-  virtual class \code{\link{Pca-class}}. 
+  An S4 object of class \code{\linkS4class{PcaNA}} which is a subclass of the 
+  virtual class \code{\link[rrcov]{Pca-class}}. 
 }
 \references{
 

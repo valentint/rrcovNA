@@ -19,12 +19,12 @@ The derived classes can override these methods and can define new ones.}
         \item{\code{wt}:}{weights}
         \item{\code{call}, \code{cov}, \code{center},
             \code{n.obs}, \code{mah}, \code{method},
-            \code{singularity}, \code{X}:}{from the \code{"\linkS4class{Cov}"} class.
+            \code{singularity}, \code{X}:}{from the \code{"\link[rrcov]{Cov-class}"} class.
         }
     }
 }
 \section{Extends}{
-    Classes \code{"\linkS4class{CovNA}"} and \code{"\linkS4class{CovRobust}"}, directly.
+    Classes \code{"\linkS4class{CovNA}"} and \code{"\link[rrcov]{CovRobust-class}"}, directly.
 }
 \section{Methods}{
 \describe{
@@ -42,7 +42,8 @@ The derived classes can override these methods and can define new ones.}
 %\note{}
 
 \seealso{
-  \code{\link{CovNA-class}}, \code{\link{CovNAMcd-class}}, \code{\link{CovNAOgk-class}}, \code{\link{CovNASde-class}}, , \code{\link{CovNASest-class}}
+  \code{\linkS4class{CovNA}}, \code{\linkS4class{CovNAMcd}}, \code{\linkS4class{CovNAOgk}}, 
+  \code{\linkS4class{CovNASde}} , \code{\linkS4class{CovNASest}}
 }
 \examples{
      data(hbk)
