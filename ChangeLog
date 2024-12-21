@@ -1,3 +1,9 @@
+2024-12-19  Valentin Todorov  <valentin.todorov@chello.at>
+    *
+    * DESCRIPTION (Version): 0.5-3
+    *
+    * R/impSeqRob.R - Fixed bugs related to GitHub issue from 18.
+    *
 2024-08-15  Valentin Todorov  <valentin.todorov@chello.at>
     *
     * DESCRIPTION (Version): 0.5-2

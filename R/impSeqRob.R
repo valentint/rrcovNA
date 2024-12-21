@@ -24,45 +24,45 @@
 ##  cbind(phosphor[,1:2],x,y$x)
 ##
 
-impSeqRob <- function(x, alpha=0.9){
+impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=FALSE){
 
-    if(is.data.frame(x))
-    {
+    if(is.data.frame(x)) {
         x <- data.matrix(x)
-    }else if(!is.matrix(x))
-    {
+    }else if(!is.matrix(x)) {
         x <- matrix(x, length(x), 1, dimnames = list(names(x), deparse(substitute(x))))
     }
     xcall <- match.call()
 
+    data <- x           # keep the original variables
+    datax <- checkData(x, check_data=check_data, silent=silent)
+    ##  rowInAnalysis <- datax$rowInAnalysis
+    rowInAnalysis <- 1:nrow(data)
+    colInAnalysis <- datax$colInAnalysis
+    x <- data[rowInAnalysis, colInAnalysis]
+
     n <- nrow(x)
     p <- ncol(x)
-    isnanx = is.na(x) + 0
-    risnanx = apply(isnanx,1,sum) #observations with missing values
+    isnanx = is.na(x) + 0                   # map of the missingness of x
+    risnanx = apply(isnanx, 1, sum)         # observations with missing values per row
 
-    ntotmiss <- length(which(risnanx > 0))  # all missing
-    ntotcompl <- n - ntotmiss               # all complete
+    ntotmiss <- length(which(risnanx > 0))  # all rows with at least one missing 
+    ntotcompl <- n - ntotmiss               # all complete rows
 
-    if(ntotmiss == 0)                   # if no missing data - calculate
-    {
-        outx <- .outlSD(x, alpha=alpha) # outlyingness of the complete
-        return(outx)                    # matrix and return x
-
+    if(ntotmiss == 0) {                     # if no missing data - calculate
+        outx <- .outlSD(x, alpha=alpha)     # outlyingness of the complete
+                                            # matrix and return x
+        data[, colInAnalysis] <- outx$xseq
+        return(c(list(x=data, outl=outx$outl, flag=outx$flag), datax))
     }
-
+      
     ##  sort according to percentage of missing values (so that first the observations
     ##  with smallest number of missing values are handled)
-
-    ##[sortx,Ix] = sort(risnanx);
     sortx <- sort.int(risnanx, index.return=TRUE)
     sorth <- sort.int(sortx$ix, index.return=TRUE)
-    x = x[sortx$ix,]
+    x <- x[sortx$ix,]
 
-##isnanx = isnanx(Ix,:);
-##risnanx = sortx; %observations with missings
-    isnanx = is.na(x) + 0
-
-    risnanx = sortx$x #observations with missing values
+    isnanx <- is.na(x) + 0
+    risnanx <- sortx$x                      # observations with missing values
 
     complobs <- which(risnanx == 0)
     ncomplobs <- length(complobs)
@@ -73,50 +73,63 @@ impSeqRob <- function(x, alpha=0.9){
     nmisobs <- length(misobs)
 
     mincomplete <- ceiling(p/alpha)         # minimum required complete observations
-    if(ntotcompl >= 5*p)                    # more than enough complete - do nothing
-    {
+    if(ntotcompl >= 5*p) {                  # more than enough complete - do nothing
         ## do nothing
         r <- p
-    }else if(ntotcompl >= mincomplete)      # if enough complete observations check
-    {                                       # if the cov matrix is not singular
+    } else if(ntotcompl >= mincomplete) {   # if enough complete observations check
+                                            # if the cov matrix is not singular
         covm <- .covSD(x[complobs,], h)
         r <- rankMM(covm$cov)
     }
 
-    if(ntotcompl < mincomplete || r < p)        # if not enough complete observations
-    {
+    if(ntotcompl < mincomplete || r < p) {      # if not enough complete observations
+    
+        cat("\nNot enough complete observations: only ", ntotcompl, "complete, needed atleast ", mincomplete, "...\n")
         ## impute the missing data using package norm
         s <- prelim.norm(x)                     # do preliminary manipulations
         thetahat <- em.norm(s, showits=FALSE)   # find the mle
         rngseed(1234567)                        # set random number generator seed
         ximp <- imp.norm(s, thetahat, x)        # impute missing data under the MLE
-        xx<-imp.norm(s, thetahat, x)            # impute missing data under the MLE
 
-        outx <- .outlSD(ximp, alpha=alpha)      # outlyingness of the complete
-        return(outx)                            # matrix and return x
 
-        repeat
-        {
+        if(norm_impute) {        
+            cat("\nImputing using the multivariate normal model and returning.\n")
+            outx <- .outlSD(ximp, alpha=alpha)      # outlyingness of the complete
+                                                    # matrix and return x
+            ## put the observations in the original order
+            xseq <- outx$xseq[sorth$ix, ]
+            outl <- outx$outl[sorth$ix]
+            flag <- outx$flag[sorth$ix]
+            
+            data[, colInAnalysis] <- xseq
+            return(c(list(x=data, outl=outl, flag=flag), datax))
+        }
+        
+        ## This code could be used instead of the early return above 
+        ##  of a matrix imputed by another method (norm()) - not tested!
+        ##  Instead of returning the imputed by norm (non-robustly) matrix earlier,
+        ##  this code tries to use only as many as necessary imputed observations
+        ##  to start the sequential imputation.
+        cat("\nTrying to impute the minimum necessary complete observations using the multivariate normal model ...\n")
+        repeat {
             x[(ncomplobs+1):mincomplete,] <- ximp[(ncomplobs+1):mincomplete,]
             risnanx[(ncomplobs+1):mincomplete] <- 0
 
             complobs <- which(risnanx == 0)
             ncomplobs <- length(complobs)
-            ## h <- floor(alpha*ncomplobs)
-            h <- h.alpha.n(alpha, ncomplobs, p)
+            h <- h.alpha.n(alpha, ncomplobs, p)     # h <- floor(alpha*ncomplobs)
             covm <- .covSD(x[complobs,], h)
             r <- rankMM(covm$cov)
             if(r >= p)
                 break
 
-            cat("\nMin: ",mincomplete, " Rank: ",r, "Complete: ",ncomplobs, "\n")
+            cat("\nMin: ", mincomplete, " Rank: ", r, "Necessary rank: ", p, "Complete: ", ncomplobs, "\n")
             mincomplete <- mincomplete + 1
         }
 
         ncomplobs <- length(complobs)
         initncomplobs <- ncomplobs
-        ## h <- floor(alpha*ncomplobs)
-        h <- h.alpha.n(alpha, ncomplobs, p)
+        h <- h.alpha.n(alpha, ncomplobs, p)         # h <- floor(alpha*ncomplobs)
         misobs <- which(risnanx != 0)
         nmisobs <- length(misobs)
     }
@@ -124,35 +137,7 @@ impSeqRob <- function(x, alpha=0.9){
     ##  use outlyingness to obtain an initial estimate for cov and mean of the
     ##  initial complete data set
 
-##    nrich1 <- ncomplobs*(ncomplobs-1)/2
-##    ndirect <- min(500,nrich1)  # note 500 instead of 250
-##    true <- ndirect == nrich1
-##    B <- .extradir(x[complobs,], ndirect, true)    # n*ri
-
-##    Bnorm <- vector(mode="numeric", length=nrow(B))   # ndir x 1
-##    Bnorm <- apply(B, 1, vecnorm)   #
-##    Bnormr <- Bnorm[Bnorm > 1.E-12]         # choose only the nonzero length vectors
-##    m <- length(Bnormr)                     # the number of directions that will be used
-##    B <- as.matrix(B[Bnorm > 1.E-12,])      # B[m x ncol(X)]
-##    A <- diag(1/Bnormr) %*% B               # A[m x ncol(X)]
-
-
-    ## projected points in columns
-
-##    Y <- as.matrix(x[complobs,]) %*% t(A)     # n x m - projections of the n points on each of the m directions
-##    Z <- matrix(0,ncomplobs, m)               # n x m - to collect the outlyingness of each point on each direction
-
-##    medY <- apply(Y, 2, median)
-##    madY <- apply(Y, 2, mad)
-##    Z <- abs(Y - matrix(1,ncomplobs,1) %*% medY) / (matrix(1,ncomplobs,1) %*% madY)
-
-##    d <- apply(Z,1,max)
-##    ds <- sort.int(d, index.return=TRUE)
-
     ## initial estimates for mean and cov
-##    covx <- cov(x[complobs[ds$ix[1:h]],])
-##    mx <- colMeans(x[complobs[ds$ix[1:h]],])
-
     covm <- .covSD(x[complobs,], h)
     covx <- covm$cov
     mx <- covm$mean
@@ -169,17 +154,14 @@ impSeqRob <- function(x, alpha=0.9){
 
     ncomplobsupdate  <- h
     ## start sequential imputation
-    for(inn in 1:nmisobs)
-    {
+    for(inn in 1:nmisobs) {
         mvar = as.logical(isnanx[misobs[inn],])
         xo = x[misobs[inn],!mvar]
 
         ## FIRST estimate missing part of x
-        if(inn == 1)
-        {
+        if(inn == 1) {
             icovx <- solve(covx)
-        }else if(flag[misobs[inn-1]] == 0) # update inv(covx) if new point has entered
-        {
+        }else if(flag[misobs[inn-1]] == 0) {    # update inv(covx) if new point has entered 
             f <- 1/sqrt(ncomplobsupdate-1) * (x[misobs[inn-1],] - mxo)
             icovx <- .update_invcov((ncomplobsupdate-1)/(ncomplobsupdate-2)*icovx, f)
         }
@@ -189,12 +171,9 @@ impSeqRob <- function(x, alpha=0.9){
         ## THEN calculate the outlyingness
         Y <- x[misobs[inn], ] %*% t(A)  # 1*ndirect
         Zx <- abs(Y - medY) / madY
+        dx <- apply(Zx, 1 , max)
 
-        ## ??? dx <- max(Zx, [], 2)';
-        dx <- apply(Zx, 1 ,max)
-
-        if(dx <= ds$x[h])  # not an outlier
-        {
+        if(dx <= ds$x[h])  { # not an outlier
             flag[misobs[inn]] <- 0
             ncomplobsupdate <- ncomplobsupdate + 1
             h <- h+1
@@ -218,7 +197,8 @@ impSeqRob <- function(x, alpha=0.9){
     xseq <- x[sorth$ix, ]
     outl <- outl[sorth$ix]
     flag <- flag[sorth$ix]
-    list(x=xseq, outl=outl, flag=flag)
+    data[, colInAnalysis] <- xseq
+    return(c(list(x=data, outl=outl, flag=flag), datax))
 }
 
 ##
@@ -361,13 +341,12 @@ impSeqRob <- function(x, alpha=0.9){
 
 ##  use outlyingness to obtain an initial estimate for cov and mean of the
 ##  initial complete data set
-.covSD <- function(x, h)
-{
+.covSD <- function(x, h) {
     n <- nrow(x)
     p <- ncol(x)
 
     nrich1 <- n*(n-1)/2
-    ndirect <- min(500,nrich1)      # note 500 instead of 250
+    ndirect <- min(500,nrich1)          # note 500 instead of 250
     true <- ndirect == nrich1
     B <- .extradir(x, ndirect, true)    # n*ri
 
