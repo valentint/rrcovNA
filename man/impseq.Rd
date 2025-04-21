@@ -7,14 +7,31 @@ Sequential imputation of missing values
 Impute missing multivariate data using sequential algorithm
 }
 \usage{
-impSeq(x)
+impSeq(x, norm_impute=FALSE, check_data=FALSE, verbose=TRUE)
 }
 \arguments{
-\item{x}{
-the original incomplete data matrix.
-}}
+\item{x}{the original incomplete data matrix.}
+\item{norm_impute}{If there are not enough complete observations and \code{norm_impute=TRUE}
+    the data matrix will be imputed using the multivariate normal model,
+    the outlyingness will be computed for the completed matrix and the result will be returned.
+    If \code{norm_impute=FALSE} (the default) the algorithm will try to impute 
+    sufficient number of observations using the multivariate normal model and then will
+    start the sequential imputation.}
+\item{check_data}{whether to check the variables: only numeric, non discrete, 
+    with less than 50\% NAs and with non-zero MAD. The default is \code{check_data=FALSE},
+    meaning that no checks will be performed.}
+\item{verbose}{whether to write messages about the checking of the data. By default 
+    \code{verbose=TRUE}, i.e. messages will be written. }
+
+}
 \value{
-a matrix of the same form as \code{x}, but with all missing values filled in sequentially.
+A list containing the following elements:
+    \item{\code{x}}{a matrix of the same form as \code{x}, but with all missing values filled in sequentially.}
+    \item{\code{colInAnalysis}}{the column indices of the columns used in the analysis.}
+    \item{\code{namesNotNumeric}}{the names of the variables which are not numeric.}
+    \item{\code{namesNAcol}}{names of the columns left out due to too many NA's.}
+    \item{\code{namesDiscrete}}{names of the discrete variables.}
+    \item{\code{namesZeroScale}}{names of the variables with zero scale.}
 }
 \details{
 \code{SEQimpute} starts from a complete subset of the data set \code{Xc} and estimates 

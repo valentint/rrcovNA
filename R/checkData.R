@@ -1,4 +1,4 @@
-checkData <- function(X, check_data=TRUE, fracNA=0.5, numDiscrete=3, precScale=1e-12, silent=FALSE) {
+checkData <- function(X, check_data=TRUE, fracNA=0.5, numDiscrete=3, precScale=1e-12, verbose=TRUE) {
 ## This function checks the data X, and removes
 ## columns and rows that do not satisfy the conditions.
 ##
@@ -30,7 +30,7 @@ checkData <- function(X, check_data=TRUE, fracNA=0.5, numDiscrete=3, precScale=1
     if(numbadcol > 0) {
         namesNotNumeric <- colnames(x)[vecNotNumeric]
         x <- X[, colInAnalysis]
-        if(!silent) {
+        if(verbose) {
             cat("\nThe data contained ", numbadcol, " non-numeric columns:\n")
             print(namesNotNumeric)   
         }
@@ -45,7 +45,7 @@ checkData <- function(X, check_data=TRUE, fracNA=0.5, numDiscrete=3, precScale=1
             namesNAcol <- colnames(x)[indNAcol]
             x <- x[, -indNAcol]
             ngoodcol <- ncol(x)
-            if(!silent) {
+            if(verbose) {
                 cat("\nThe data contained",  length(indNAcol), "column(s) with over", 100*fracNA, "% of NAs:\n")
                 print(namesNAcol)
             }
@@ -59,7 +59,7 @@ checkData <- function(X, check_data=TRUE, fracNA=0.5, numDiscrete=3, precScale=1
             namesDiscrete <- colnames(x)[indDiscrete]
             x <- x[, -indDiscrete]
             ngoodcol <- ncol(x)
-            if(!silent) {
+            if(verbose) {
                 cat("\nThe data contained",  length(indDiscrete), "discrete columns with", numDiscrete, "or fewer values:\n")
                 print(namesDiscrete)
             }
@@ -75,7 +75,7 @@ checkData <- function(X, check_data=TRUE, fracNA=0.5, numDiscrete=3, precScale=1
             namesZeroScale <- colnames(x)[indZeroScale]
             x <- x[, -indZeroScale]
             ngoodcol <- ncol(x)
-            if(!silent) {
+            if(verbose) {
                 cat("\nThe data contained",  length(indZeroScale), "columns with zero or tiny median absolute deviation:\n")
                 print(namesZeroScale)
             }

@@ -60,9 +60,13 @@ mcdna <- CovNAMcd(x)
 ##cbind(mcdc@wt, mcdna@wt, mcd@wt)
 
 data(salinity); x <- y <- data.matrix(subset(salinity, select = -Y)); x[1,2] <- NA; x[8,3] <- NA; x[13,3] <- NA
+set.seed(1234)
 mcdc <- CovMcd(y)
+set.seed(1234)
 ximp <- impSeq(x); mcds <- CovMcd(ximp)                     # mcd - sequential imputation + MCD
+set.seed(1234)
 ximp <- impSeqRob(x, alpha=alpha); mcd <- CovMcd(ximp$x)
+set.seed(1234)
 mcdna <- CovNAMcd(x)
 as.vector(which(mcdc@wt==0))
 as.vector(which(mcds@wt==0))

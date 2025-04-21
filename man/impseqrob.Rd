@@ -7,7 +7,7 @@ Robust sequential imputation of missing values
 Impute missing multivariate data using robust sequential algorithm
 }
 \usage{
-impSeqRob(x, alpha=0.9, norm_impute=FALSE)
+impSeqRob(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, verbose=TRUE)
 }
 \arguments{
 \item{x}{the original incomplete data matrix.}
@@ -21,10 +21,10 @@ impSeqRob(x, alpha=0.9, norm_impute=FALSE)
     sufficient number of observations using the multivariate normal model and then will
     start the sequential imputation.}
 \item{check_data}{whether to check the variables: only numeric, non discrete, 
-    with less than 50% NAs and with non-zero MAD. The default is \code{check_data=FALSE},
+    with less than 50\% NAs and with non-zero MAD. The default is \code{check_data=FALSE},
     meaning that no checks will be performed.}
-\item{silent}{whether to write messages about the checking of the data. By default 
-    \code{silent=FALSE}, i.e. messages will be written. }
+\item{verbose}{whether to write messages about the checking of the data. By default 
+    \code{verbose=TRUE}, i.e. messages will be written. }
 }
 \value{
 A list containing the following elements:

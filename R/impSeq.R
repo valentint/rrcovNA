@@ -21,7 +21,7 @@
 ##  cbind(phosphor[,1:2],x,y)
 ##
 
-impSeq <- function(x){
+impSeq <- function(x, norm_impute=FALSE, check_data=FALSE, verbose=TRUE){
 
     if(is.data.frame(x)) {
         x <- data.matrix(x)
@@ -30,27 +30,39 @@ impSeq <- function(x){
     }
     xcall <- match.call()
 
+    data <- x           # keep the original variables
+    datax <- checkData(x, check_data=check_data, verbose=verbose)
+    ##  rowInAnalysis <- datax$rowInAnalysis
+    rowInAnalysis <- 1:nrow(data)
+    colInAnalysis <- datax$colInAnalysis
+    x <- data[rowInAnalysis, colInAnalysis]
+
     n <- nrow(x)
     p <- ncol(x)
     isnanx = is.na(x) + 0
-    risnanx = apply(isnanx,1,sum) # observations with missing values
+    risnanx = apply(isnanx, 1, sum) # observations with missing values
 
-    if(length(which(risnanx > 0)) == 0)         # no missing data - return x
-        return(x)
+    ntotmiss <- length(which(risnanx > 0))  # all rows with at least one missing 
+    ntotcompl <- n - ntotmiss               # all complete rows
+
+    if(ntotmiss == 0) {                     # no missing data - return x
+        data[, colInAnalysis] <- x
+        if(!check_data)
+            return(x=data)
+        else            
+            return(c(list(x=data), datax))   
+    }
 
 
     ## sort according to percentage of missing values (so that first the observations
     ## with smallest number of missing values are handled)
 
-    ##[sortx,Ix] = sort(risnanx);
     sortx <- sort.int(risnanx, index.return=TRUE)
     sorth <- sort.int(sortx$ix, index.return=TRUE)
-    x = x[sortx$ix,]
+    x <- x[sortx$ix,]
 
-##isnanx = isnanx(Ix,:);
-##risnanx = sortx; %observations with missings
-    isnanx = is.na(x) + 0
-    risnanx = sortx$x               # observations with missing values
+    isnanx <- is.na(x) + 0
+    risnanx <- sortx$x               # observations with missing values
 
     complobs = which(risnanx == 0)
     misobs = which(risnanx != 0)
@@ -79,7 +91,7 @@ impSeq <- function(x){
         mvar = as.logical(isnanx[misobs[inn],])
         xo = x[misobs[inn],!mvar]
 
-        # estimate missing part of x
+        ## estimate missing part of x
         x[misobs[inn], mvar] =
             mx[mvar] - solve(icovx[mvar,mvar]) %*% icovx[mvar,!mvar] %*% as.matrix(xo - mx[!mvar])
 
@@ -87,5 +99,11 @@ impSeq <- function(x){
         ncomplobs = ncomplobs + 1
     }
 
-    x[sorth$ix,]
+    x <- x[sorth$ix,]
+
+    data[, colInAnalysis] <- x
+    if(!check_data)
+        return(x=data)
+    else    
+        return(c(list(x=data), datax))   
 }

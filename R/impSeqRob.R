@@ -24,7 +24,7 @@
 ##  cbind(phosphor[,1:2],x,y$x)
 ##
 
-impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=FALSE){
+impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, verbose=TRUE){
 
     if(is.data.frame(x)) {
         x <- data.matrix(x)
@@ -34,7 +34,7 @@ impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=
     xcall <- match.call()
 
     data <- x           # keep the original variables
-    datax <- checkData(x, check_data=check_data, silent=silent)
+    datax <- checkData(x, check_data=check_data, verbose=verbose)
     ##  rowInAnalysis <- datax$rowInAnalysis
     rowInAnalysis <- 1:nrow(data)
     colInAnalysis <- datax$colInAnalysis
@@ -66,7 +66,6 @@ impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=
 
     complobs <- which(risnanx == 0)
     ncomplobs <- length(complobs)
-    initncomplobs <- ncomplobs
 
     h <- h.alpha.n(alpha, ncomplobs, p)     # h <- floor(alpha*ncomplobs)
     misobs <- which(risnanx != 0)
@@ -128,7 +127,6 @@ impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=
         }
 
         ncomplobs <- length(complobs)
-        initncomplobs <- ncomplobs
         h <- h.alpha.n(alpha, ncomplobs, p)         # h <- floor(alpha*ncomplobs)
         misobs <- which(risnanx != 0)
         nmisobs <- length(misobs)
@@ -208,12 +206,10 @@ impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=
 ##      are returned.
 ##
 .extradir <- function(data, ndirect, all=TRUE){
-    if(all)                             # generate all possible directions (all pairs of n points)
-    {
+    if(all)  {                            # generate all possible directions (all pairs of n points)
         cc <- combn(nrow(data), 2)
         B2 <- data[cc[1,],] - data[cc[2,],]
-    }
-    else {                              # generate 'ndirect' random directions
+    } else {                              # generate 'ndirect' random directions
         if(TRUE){
                 uniran <- function(seed = 0){
                     seed<-floor(seed*5761)+999
@@ -262,8 +258,7 @@ impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=
                     B2[r,] <- data[sseed$ranset[1], ] - data[sseed$ranset[2],]
                     r <- r + 1
                 }
-        } else
-        {
+        } else {
                 B2 <- matrix(0,ndirect, ncol(data))
                 for(r in 1:ndirect) {
                     smpl <- sample(1:nrow(data), 2)                 # choose a random pair of points
@@ -289,11 +284,9 @@ impSeqRob <- function(x, alpha=0.9, norm_impute=FALSE, check_data=FALSE, silent=
 .outlSD <- function(x, alpha=0.9)
 {
 
-    if(is.data.frame(x))
-    {
+    if(is.data.frame(x)) {
         x <- data.matrix(x)
-    }else if(!is.matrix(x))
-    {
+    } else if(!is.matrix(x))  {
         x <- matrix(x, length(x), 1, dimnames = list(names(x), deparse(substitute(x))))
     }
 

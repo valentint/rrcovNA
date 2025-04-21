@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2023-06-12 r84534 ucrt) -- "Unsuffered Consequences"
-Copyright (C) 2023 The R Foundation for Statistical Computing
+R Under development (unstable) (2024-10-01 r87205 ucrt) -- "Unsuffered Consequences"
+Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -93,9 +93,13 @@ integer(0)
 > ##cbind(mcdc@wt, mcdna@wt, mcd@wt)
 > 
 > data(salinity); x <- y <- data.matrix(subset(salinity, select = -Y)); x[1,2] <- NA; x[8,3] <- NA; x[13,3] <- NA
+> set.seed(1234)
 > mcdc <- CovMcd(y)
+> set.seed(1234)
 > ximp <- impSeq(x); mcds <- CovMcd(ximp)                     # mcd - sequential imputation + MCD
+> set.seed(1234)
 > ximp <- impSeqRob(x, alpha=alpha); mcd <- CovMcd(ximp$x)
+> set.seed(1234)
 > mcdna <- CovNAMcd(x)
 > as.vector(which(mcdc@wt==0))
 [1]  5 16 23 24
@@ -139,4 +143,4 @@ integer(0)
 > 
 > proc.time()
    user  system elapsed 
-   0.65    0.20    1.50 
+   0.90    0.17    1.09 
